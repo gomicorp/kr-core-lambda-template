@@ -1,8 +1,8 @@
 import { Handler } from 'aws-lambda';
 
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
-const client = new Client({
+const pool = new Pool({
   database: process.env.DB_DATABASE,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -30,7 +30,8 @@ const convertValue = (item: any) => {
 };
 
 const hello: Handler = async (event: any) => {
-  client.connect();
+  const client = await pool.connect();
+  await client.query('BEGIN');
   try {
     const handlers = event.Records.map((record: any) => {
       const values = convertValue(record);
@@ -38,10 +39,12 @@ const hello: Handler = async (event: any) => {
     });
 
     await Promise.all(handlers);
+    await client.query('COMMIT');
   } catch (e) {
-    console.log(e);
+    console.log(e, JSON.stringify(event));
+    await client.query('ROLLBACK');
   }
-  await client.end();
+  client.release(true);
 
   const response: HandlerResponse = {
     statusCode: 200,
