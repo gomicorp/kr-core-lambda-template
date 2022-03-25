@@ -1,0 +1,19 @@
+{
+  "name": "gomi-serverless-template",
+  "version": "1.0.0",
+  "description": "nodejs + typescript + aws SQS",
+  "main": "handler.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.37",
+    "serverless-dotenv-plugin": "^3.12.2",
+    "serverless-plugin-typescript": "^1.1.9",
+    "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "pg": "^8.7.3",
+    "prettier": "^2.5.1"
+  }
+}

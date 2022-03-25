@@ -1,0 +1,36 @@
+service: gomi-serverless-template-node-sqs-consumer-typescript
+frameworkVersion: '2'
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 128
+  timeout: 30
+  lambdaHashingVersion: 20201221
+  region: ap-southeast-1
+  stage: ${opt:stage, 'dev'}
+  iam:
+    # TODO: iam role 을 넣어주세요
+    role: arn:aws:iam::XXXXXX:MyRole
+
+custom:
+  events:
+    dev:
+      # TODO: SQS arn 을 넣어주세요
+      sqs: arn:aws:sqs:region:XXXXXX:MyFirstQueue
+    stage:
+      sqs:
+    prod:
+      sqs:
+
+
+functions:
+  hello:
+    name: gomi-serverless-template-node-sqs-consumer-typescript-${opt:stage, 'dev'}
+    handler: handler.hello
+    events:
+      - sqs: ${self:custom.events.${self:provider.stage}.sqs}
