@@ -1,4 +1,5 @@
 import { SQSBatchResponse, SQSEvent, SQSHandler, SQSRecord } from 'aws-lambda';
+import { convertItemToTargetTableValue, executeInsertSql, TargetTableType } from './handler.sql';
 
 const { Pool } = require('pg');
 
@@ -10,30 +11,20 @@ const pool = new Pool({
   port: process.env.DB_PORT || 5432,
 });
 
-// TODO: SQL을 넣으세요
-const insertSQL = '{SQL}';
-
-const convertValue = (item: SQSRecord) => {
+const convertValue = (item: SQSRecord): TargetTableType => {
   const body = JSON.parse(item.body);
   const obj = JSON.parse(body);
 
-  // TODO: values에 들어갈 데이터를 완성해주세요
-  const values = [
-    obj.prod_cd,
-    obj.prod_des,
-    obj.bar_code,
-  ];
-
-  return values;
+  return convertItemToTargetTableValue(obj);
 };
 
-const hello: SQSHandler = async (event: SQSEvent): Promise<SQSBatchResponse> => {
+const dataLoader: SQSHandler = async (event: SQSEvent): Promise<SQSBatchResponse> => {
   const client = await pool.connect();
   await client.query('BEGIN');
   try {
     const handlers = event.Records.map((record: SQSRecord) => {
       const values = convertValue(record);
-      return client.query(insertSQL, values);
+      return executeInsertSql(pool, values);
     });
 
     await Promise.all(handlers);
@@ -49,11 +40,10 @@ const hello: SQSHandler = async (event: SQSEvent): Promise<SQSBatchResponse> => 
   }
   client.release(true);
 
-
   const response: SQSBatchResponse = {
     batchItemFailures: [],
   };
   return response;
 };
 
-export { hello };
+export { dataLoader };
