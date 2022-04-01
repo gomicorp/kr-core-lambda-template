@@ -1,0 +1,17 @@
+service: ##TODO service 명을 입력해 주세요.
+frameworkVersion: '3'
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+functions:
+  crawler:
+    name: crawler-${opt:stage, 'dev'}
+    handler: handler.crawler
