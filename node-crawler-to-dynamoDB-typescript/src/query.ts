@@ -36,7 +36,7 @@ export const sampleQuery = JSON.stringify({ query: getBoardQuery });
 
 // variable( 파라미터 ) 받을 수 있게 하는 예시 입니다.
 // gql 사용하지 않고 query 부분부터 사용하셔도 됩니다.
-export const sampleQueryWithGql = {
+const sampleQueryWithGql = {
   sampleQueryWithGql: gql`
     query getBoardQuery($boardId: String) {
         boards(ids: $boardId) {
@@ -68,4 +68,7 @@ export const sampleQueryWithGql = {
         }
     }
   `
+}
+export const sampleQueryFunction = ( boardId: string ) => {
+    sampleQueryWithGql.sampleQueryWithGql({ variables: { boardId } })
 }
