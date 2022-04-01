@@ -1,8 +1,9 @@
-import { Handler } from 'aws-lambda';
+import { SQSBatchResponse, SQSEvent, SQSHandler, SQSRecord } from 'aws-lambda';
+import { convertItemToTargetTableValue, executeInsertSql, TargetTableType } from './handler.sql';
 
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
-const client = new Client({
+const pool = new Pool({
   database: process.env.DB_DATABASE,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -10,46 +11,39 @@ const client = new Client({
   port: process.env.DB_PORT || 5432,
 });
 
-// TODO: SQL을 넣으세요
-const insertSQL = '{SQL}';
+const convertValue = (item: SQSRecord): TargetTableType => {
+  const body = JSON.parse(item.body);
+  const obj = JSON.parse(body);
 
-interface HandlerResponse {
-  statusCode: number;
-  body: string;
-}
-
-const convertValue = (item: any) => {
-  // TODO: values에 들어갈 데이터를 완성해주세요
-  const values = [
-    item.dynamodb.NewImage.VARIABLE1.S,
-    item.dynamodb.NewImage.VARIABLE2.S,
-    item.dynamodb.NewImage.VARIABLE3.S,
-  ];
-
-  return values;
+  return convertItemToTargetTableValue(obj);
 };
 
-const hello: Handler = async (event: any) => {
-  client.connect();
+const dataLoader: SQSHandler = async (event: SQSEvent): Promise<SQSBatchResponse> => {
+  const client = await pool.connect();
+  await client.query('BEGIN');
   try {
-    const handlers = event.Records.map((record: any) => {
+    const handlers = event.Records.map((record: SQSRecord) => {
       const values = convertValue(record);
-      return client.query(insertSQL, values);
+      return executeInsertSql(pool, values);
     });
 
     await Promise.all(handlers);
+    await client.query('COMMIT');
   } catch (e) {
-    console.log(e);
-  }
-  await client.end();
+    console.log(e, JSON.stringify(event));
+    await client.query('ROLLBACK');
 
-  const response: HandlerResponse = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'success',
-    }),
+    const response: SQSBatchResponse = {
+      batchItemFailures: event.Records.map((record) => ({ itemIdentifier: record.messageId })),
+    };
+    return response;
+  }
+  client.release(true);
+
+  const response: SQSBatchResponse = {
+    batchItemFailures: [],
   };
   return response;
 };
 
-export { hello };
+export { dataLoader };

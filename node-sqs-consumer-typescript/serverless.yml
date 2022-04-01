@@ -29,8 +29,8 @@ custom:
 
 
 functions:
-  hello:
+  dataLoader:
     name: gomi-serverless-template-node-sqs-consumer-typescript-${opt:stage, 'dev'}
-    handler: handler.hello
+    handler: handler.dataLoader
     events:
       - sqs: ${self:custom.events.${self:provider.stage}.sqs}
