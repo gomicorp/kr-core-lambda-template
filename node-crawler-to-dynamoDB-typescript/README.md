@@ -24,6 +24,7 @@ npm install
    - `handler.ts`
    - `getData` 파일 구현
    - `saveToDynamoDb` TODO 항목 설정
+   - `pakeage.json` 에 name 수정
 
 ## 추가사항
    ```

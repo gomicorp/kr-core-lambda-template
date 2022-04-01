@@ -1,5 +1,5 @@
 {
-  "name": "if_emon_mdm_s_006_raw",
+  "name": "name",
   "version": "1.0.0",
   "description": "",
   "main": "handler.ts",
@@ -18,7 +18,8 @@
     "serverless-plugin-typescript": "^1.1.9",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.3",
+    "graphql-tag": "^2.12.6"
   },
   "dependencies": {
     "aws-sdk": "^2.1074.0",

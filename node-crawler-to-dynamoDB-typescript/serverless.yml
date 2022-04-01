@@ -1,4 +1,5 @@
-service: ##TODO service 명을 입력해 주세요.
+# TODO service 명을 입력해 주세요.
+service:
 frameworkVersion: '3'
 
 plugins:
@@ -13,5 +14,6 @@ provider:
 
 functions:
   crawler:
+    # TODO name 를  수정해 주세요. 예시 `kr-core-crw-if-emon-mdm-s-006-${opt:stage, 'dev'}`
     name: crawler-${opt:stage, 'dev'}
     handler: handler.crawler

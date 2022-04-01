@@ -106,4 +106,4 @@ dist
 .idea
 
 .build
-*.yarn.lock
+yarn.lock
