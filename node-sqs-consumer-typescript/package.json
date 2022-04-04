@@ -4,7 +4,8 @@
   "description": "nodejs + typescript + aws SQS",
   "main": "handler.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:local": "sls invoke local -f dataLoader --path sample.json"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.37",

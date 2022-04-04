@@ -4,7 +4,8 @@
   "description": "",
   "main": "handler.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:local": "sls invoke local -f crawler --stage dev"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.37",
