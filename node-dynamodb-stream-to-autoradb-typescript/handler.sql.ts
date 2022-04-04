@@ -11,7 +11,7 @@ import {
 } from 'ts-sql-query/utils/tableOrViewUtils';
 
 // TODO: table name in the database
-const TABLE_NAME = 'if_eece_mdm_s_004';
+const TABLE_NAME = 'interface_table_name';
 // TODO: PK 컬럼명
 const primaryKeyColumnName = 'pk';
 
