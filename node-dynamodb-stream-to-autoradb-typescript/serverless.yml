@@ -1,0 +1,28 @@
+# TODO service 명을 입력해 주세요.
+service: gomi-serverless-template-node-dynamodb-stream-to-autoradb-typescript
+frameworkVersion: '3'
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 128
+  timeout: 120
+  region: ap-southeast-1
+  stage: ${opt:stage, 'dev'}
+  iam:
+    # TODO: iam role 을 넣어주세요
+    role: arn:aws:iam::XXXXXX:MyRole
+
+functions:
+  transfer:
+    # TODO name 를 수정해 주세요. 예시 `kr-core-eai-if-emon-mdm-s-006-${opt:stage, 'dev'}`
+    name: gomi-serverless-template-node-dynamodb-stream-to-autoradb-typescript-${opt:stage, 'dev'}
+    handler: handler.transfer
+    # TODO: vpc 정보를 넣어주세요
+    vpc:
+      securityGroupIds:
+      subnetIds:

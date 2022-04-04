@@ -11,6 +11,9 @@ provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
+  iam:
+    # TODO: iam role 을 넣어주세요
+    role: arn:aws:iam::XXXXXX:MyRole
 
 functions:
   crawler:

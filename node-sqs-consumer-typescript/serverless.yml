@@ -1,3 +1,4 @@
+# TODO service 명을 입력해 주세요.
 service: gomi-serverless-template-node-sqs-consumer-typescript
 frameworkVersion: '2'
 
@@ -30,6 +31,7 @@ custom:
 
 functions:
   dataLoader:
+    # TODO name 를  수정해 주세요. 예시 `kr-core-mdm-if-emon-mdm-s-006-${opt:stage, 'dev'}`
     name: gomi-serverless-template-node-sqs-consumer-typescript-${opt:stage, 'dev'}
     handler: handler.dataLoader
     events:

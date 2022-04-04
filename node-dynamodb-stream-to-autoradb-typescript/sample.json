@@ -1,0 +1,43 @@
+{
+  "Records": [
+    {
+      "eventID": "7de3041dd709b024af6f29e4fa13d34c",
+      "eventName": "INSERT",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "ap-southeast-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1479499740,
+        "Keys": {
+          "Timestamp": {
+            "S": "2016-11-18:12:09:36"
+          },
+          "Username": {
+            "S": "John Doe"
+          }
+        },
+        "NewImage": {
+          "pk": {
+            "S": "bd7eb4d1-dc6f-5641-b127-7ab275983d8d"
+          },
+          "REMARKS": {
+            "S": ""
+          },
+          "crawling_at": {
+            "N": "1645495999284"
+          },
+          "index_key": {
+            "S": "AP_ET_650011269"
+          },
+          "OUT_PRICE1": {
+            "S": "0.0000000000"
+          }
+        },
+        "SequenceNumber": "13021600000000001596893679",
+        "SizeBytes": 112,
+        "StreamViewType": "NEW_IMAGE"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:*****"
+    }
+  ]
+}

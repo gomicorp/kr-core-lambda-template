@@ -10,7 +10,7 @@
 1. 프로젝트 생성
 ```shell
 serverless create \
-  --template-url https://github.com/gomicorp/kr-core-lambda-template/tree/main/node-crawler-typescript \
+  --template-url https://github.com/gomicorp/kr-core-lambda-template/tree/main/node-crawler-to-dynamoDB-typescript \
   --path myService
 ```
 2. 초기화
@@ -40,5 +40,5 @@ sls deploy
 
 ## 테스트 로컬
 ```shell
-sls invoke local -f crawler --stage dev
+npm run test:local
 ```

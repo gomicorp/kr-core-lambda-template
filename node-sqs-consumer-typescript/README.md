@@ -11,7 +11,7 @@ SQS 에서 event 를 받아서 RDS 에 데이터를 적재합니다
 ```shell
 serverless create \
   --template-url https://github.com/gomicorp/kr-core-lambda-template/tree/main/node-sqs-consumer-typescript \
-  --path myService
+  --path [myProject]
 ```
 2. 초기화
 ```
@@ -58,5 +58,5 @@ sls deploy
 ## 테스트
 ### 로컬에서 샘플파일로 테스트 실행
 ```shell
-sls invoke local -f hello --path sample.json
+npm run test:local
 ```
