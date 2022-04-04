@@ -1,0 +1,26 @@
+{
+  "name": "node-dynamodb-stream-to-autoradb-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:local": "sls invoke local -f transfer --path sample.json"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.37",
+    "@types/pg": "^8.6.5",
+    "serverless": "^3.10.2",
+    "serverless-dotenv-plugin": "^3.12.2",
+    "serverless-plugin-typescript": "^1.1.9",
+    "tslint": "^5.20.1",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "aws-lambda": "^1.0.7",
+    "pg": "^8.7.3",
+    "prettier": "^2.5.1",
+    "ts-sql-query": "^1.26.0"
+  }
+}
